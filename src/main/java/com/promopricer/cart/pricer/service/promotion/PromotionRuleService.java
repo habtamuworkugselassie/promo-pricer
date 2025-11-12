@@ -1,9 +1,9 @@
 package com.promopricer.cart.pricer.service.promotion;
 
-import com.promopricer.cart.pricer.entity.Product;
-import com.promopricer.cart.pricer.entity.Promotion;
-import com.promopricer.cart.pricer.entity.PromotionType;
-import com.promopricer.cart.pricer.service.model.LineItem;
+import com.promopricer.cart.pricer.models.Product;
+import com.promopricer.cart.pricer.models.Promotion;
+import com.promopricer.cart.pricer.models.PromotionType;
+import com.promopricer.cart.pricer.service.domains.LineItem;
 
 import java.util.List;
 import java.util.Map;

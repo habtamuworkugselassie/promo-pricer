@@ -1,9 +1,9 @@
 package com.promopricer.cart.pricer.controller;
 
 
-import com.promopricer.cart.pricer.dto.PromotionRequest;
-import com.promopricer.cart.pricer.entity.Promotion;
-import com.promopricer.cart.pricer.entity.PromotionType;
+import com.promopricer.cart.pricer.controller.domains.PromotionRequest;
+import com.promopricer.cart.pricer.models.Promotion;
+import com.promopricer.cart.pricer.models.PromotionType;
 import com.promopricer.cart.pricer.repository.PromotionRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

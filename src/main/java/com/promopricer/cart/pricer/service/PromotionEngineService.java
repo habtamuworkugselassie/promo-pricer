@@ -1,10 +1,10 @@
 package com.promopricer.cart.pricer.service;
 
-import com.promopricer.cart.pricer.entity.CustomerSegment;
-import com.promopricer.cart.pricer.entity.Product;
-import com.promopricer.cart.pricer.entity.Promotion;
+import com.promopricer.cart.pricer.models.CustomerSegment;
+import com.promopricer.cart.pricer.models.Product;
+import com.promopricer.cart.pricer.models.Promotion;
 import com.promopricer.cart.pricer.repository.PromotionRepository;
-import com.promopricer.cart.pricer.service.model.LineItem;
+import com.promopricer.cart.pricer.service.domains.LineItem;
 import com.promopricer.cart.pricer.service.promotion.PromotionRuleService;
 import org.springframework.stereotype.Service;
 

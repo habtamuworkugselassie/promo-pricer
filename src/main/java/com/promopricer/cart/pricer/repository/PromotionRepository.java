@@ -1,6 +1,6 @@
 package com.promopricer.cart.pricer.repository;
 
-import com.promopricer.cart.pricer.entity.Promotion;
+import com.promopricer.cart.pricer.models.Promotion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

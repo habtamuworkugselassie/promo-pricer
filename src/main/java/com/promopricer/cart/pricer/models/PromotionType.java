@@ -1,4 +1,4 @@
-package com.promopricer.cart.pricer.entity;
+package com.promopricer.cart.pricer.models;
 
 
 public enum PromotionType {

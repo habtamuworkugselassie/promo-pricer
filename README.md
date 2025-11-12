@@ -26,13 +26,13 @@ The application is built using Maven and can be started directly via the Spring 
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd PromoQuoter
+git clone https://github.com/habtamuworkugselassie/promo-pricer.git
+cd promo-pricer
 `````
 
 2. Build and Run:
 ```bash
-./mvnw spring-boot:run
+./gradlew bootRun
 `````
 The service will start on http://localhost:8080.
 

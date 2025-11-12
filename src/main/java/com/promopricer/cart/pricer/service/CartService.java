@@ -1,16 +1,16 @@
 package com.promopricer.cart.pricer.service;
 
 import com.promopricer.cart.pricer.config.PromotionAppConfig;
-import com.promopricer.cart.pricer.dto.*;
-import com.promopricer.cart.pricer.entity.CustomerSegment;
-import com.promopricer.cart.pricer.entity.IdempotencyKeyRecord;
-import com.promopricer.cart.pricer.entity.Product;
+import com.promopricer.cart.pricer.controller.domains.*;
+import com.promopricer.cart.pricer.models.CustomerSegment;
+import com.promopricer.cart.pricer.models.IdempotencyKeyRecord;
+import com.promopricer.cart.pricer.models.Product;
 import com.promopricer.cart.pricer.exceptions.BadRequestException;
 import com.promopricer.cart.pricer.exceptions.ConflictException;
 import com.promopricer.cart.pricer.exceptions.ResourceNotFoundException;
 import com.promopricer.cart.pricer.repository.IdempotencyKeyRecordRepository;
 import com.promopricer.cart.pricer.repository.ProductRepository;
-import com.promopricer.cart.pricer.service.model.LineItem;
+import com.promopricer.cart.pricer.service.domains.LineItem;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

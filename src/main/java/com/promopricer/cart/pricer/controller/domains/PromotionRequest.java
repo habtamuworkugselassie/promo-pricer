@@ -1,4 +1,4 @@
-package com.promopricer.cart.pricer.dto;
+package com.promopricer.cart.pricer.controller.domains;
 
 import jakarta.validation.constraints.NotBlank;
 

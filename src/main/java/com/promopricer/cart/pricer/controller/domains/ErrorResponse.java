@@ -1,4 +1,4 @@
-package com.promopricer.cart.pricer.dto;
+package com.promopricer.cart.pricer.controller.domains;
 
 public record ErrorResponse(
         int status,

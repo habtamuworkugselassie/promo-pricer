@@ -3,7 +3,6 @@ package com.promopricer.cart.pricer.config;
 
 import com.promopricer.cart.pricer.service.promotion.PromotionRuleService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +19,7 @@ public class PromotionAppConfig {
 
     private final ApplicationContext applicationContext;
 
-    @Value("${promotion.rules.order}")
-    private List<String> promotionRuleOrder;
+    private PromotionRulesProperties promotionRules;
 
     @Bean
     public List<PromotionRuleService> promotionRules() {
@@ -31,7 +29,7 @@ public class PromotionAppConfig {
 
         List<PromotionRuleService> orderedRules = new ArrayList<>();
 
-        for (String promotionType : promotionRuleOrder) {
+        for (String promotionType : promotionRules.getOrder()) {
             PromotionRuleService service = allPromotionServices.values().stream()
                     .filter(promotionRuleService -> promotionType.equalsIgnoreCase(promotionRuleService.getPromotionType().name()))
                     .findFirst().orElse(null);

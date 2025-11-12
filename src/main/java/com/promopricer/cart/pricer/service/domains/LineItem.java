@@ -1,8 +1,8 @@
-package com.promopricer.cart.pricer.service.model;
+package com.promopricer.cart.pricer.service.domains;
 
 import com.promopricer.cart.pricer.config.PromotionAppConfig;
-import com.promopricer.cart.pricer.dto.CartItemDto;
-import com.promopricer.cart.pricer.entity.Product;
+import com.promopricer.cart.pricer.controller.domains.CartItemDto;
+import com.promopricer.cart.pricer.models.Product;
 import lombok.Getter;
 
 import java.math.BigDecimal;

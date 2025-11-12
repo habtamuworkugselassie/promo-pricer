@@ -1,6 +1,6 @@
 package com.promopricer.cart.pricer.exceptions;
 
-import com.promopricer.cart.pricer.dto.ErrorResponse;
+import com.promopricer.cart.pricer.controller.domains.ErrorResponse;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.promopricer.cart.pricer.entity;
+package com.promopricer.cart.pricer.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

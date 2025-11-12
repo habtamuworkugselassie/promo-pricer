@@ -1,8 +1,8 @@
 package com.promopricer.cart.pricer.controller;
 
-import com.promopricer.cart.pricer.dto.ProductRequest;
-import com.promopricer.cart.pricer.entity.Product;
-import com.promopricer.cart.pricer.entity.ProductCategory;
+import com.promopricer.cart.pricer.controller.domains.ProductRequest;
+import com.promopricer.cart.pricer.models.Product;
+import com.promopricer.cart.pricer.models.ProductCategory;
 import com.promopricer.cart.pricer.repository.ProductRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

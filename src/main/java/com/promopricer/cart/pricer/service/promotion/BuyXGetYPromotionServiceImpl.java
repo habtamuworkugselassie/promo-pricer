@@ -2,10 +2,10 @@ package com.promopricer.cart.pricer.service.promotion;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.promopricer.cart.pricer.entity.Product;
-import com.promopricer.cart.pricer.entity.Promotion;
-import com.promopricer.cart.pricer.entity.PromotionType;
-import com.promopricer.cart.pricer.service.model.LineItem;
+import com.promopricer.cart.pricer.models.Product;
+import com.promopricer.cart.pricer.models.Promotion;
+import com.promopricer.cart.pricer.models.PromotionType;
+import com.promopricer.cart.pricer.service.domains.LineItem;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

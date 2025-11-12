@@ -2,9 +2,9 @@ server:
   port: 8080
 spring:
   application:
-    name: cartPricer
+    name: cart-pricer
   datasource:
-    url: jdbc:h2:mem:promoquoterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:promopricerdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password: password
