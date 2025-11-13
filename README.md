@@ -49,95 +49,114 @@ The following are the core endpoints with example curl commands.
 1. Product Creation
 Define initial products.
 Endpoint: `POST /products` Example Request:
+
+product #1
 ````````
-curl -X POST http://localhost:8080/products \
--H 'Content-Type: application/json' \
--d '[
-{
-"name": "Mechanical Keyboard",
-"category": "ELECTRONICS",
-"price": 150.00,
-"stock": 50
-},
-{
-"name": "Gaming Mousepad",
-"category": "ACCESSORIES",
-"price": 25.00,
-"stock": 100
-}
-]'
+curl --location 'http://localhost:8080/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": "df9de2a2-0e6d-409b-9dd5-3d8a73aea6c4",
+    "name": "Full Chicken",
+    "category": "FOOD",
+    "price": 1500.00,
+    "stock": 100
+}'
 `````````
+product #2
+```agsl
+curl --location 'http://localhost:8080/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": "5b86c458-121d-47ef-8114-7b1608cd47e7",
+    "name": "Mechanical Keyboard",
+    "category": "ELECTRONICS",
+    "price": 150.00,
+    "stock": 50
+}'
+```
 2. Promotion Creation
 
 Define and activate promotion rules.(Note: The productId should be the ID returned from the product creation step).
 Endpoint: `POST /promotions` Example Request: (10% off category ELECTRONICS and a B2G1 Free deal)
+
+promotion #1
 ``````````
-curl -X POST http://localhost:8080/promotions \
-   -H 'Content-Type: application/json' \
-   -d '[
-   {
-   "type": "PERCENT_OFF_CATEGORY",
-   "category": "ELECTRONICS",
-   "discountPercentage": 10
-   },
-   {
-   "type": "BUY_X_GET_Y",
-   "productId": "keyboard-uuid-or-id",
-   "buyCount": 2,
-   "getFreeCount": 1
-   }
-   ]'
+curl --location 'http://localhost:8080/promotions' \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "B3G1 Free Chicken Promotion",
+  "type": "BUY_X_GET_Y",
+  "config": "{\"productId\": \"df9de2a2-0e6d-409b-9dd5-3d8a73aea6c4\", \"buy\": 5, \"get\": 1}",
+  "targetSegments": "REGULAR, PREMIUM"
+}'
  ``````````
+promotion #2
+
+````agsl
+curl --location 'http://localhost:8080/promotions' \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "B3G1 Free Keyboard Promotion",
+  "type": "BUY_X_GET_Y",
+  "config": "{\"productId\": \"5b86c458-121d-47ef-8114-7b1608cd47e7\", \"buy\": 3, \"get\": 1}",
+  "targetSegments": "REGULAR, PREMIUM"
+}'
+````
+promotion #3
+```agsl
+curl --location 'http://localhost:8080/promotions' \
+--header 'Content-Type: application/json' \
+--data '{
+  "name": "Spring Premium 10% Off Electronics",
+  "type": "PERCENT_OFF_CATEGORY",
+  "config": "{\"category\": \"ELECTRONICS\", \"percentage\": 10}",
+  "targetSegments": "REGULAR"
+}'
+```
 3. Cart Quote Calculation
 
 Calculate the final price and itemized breakdown before reservation.
-Endpoint: POST /cart/quote Example Request: (Requesting 3 keyboards and 1 mousepad)
+Endpoint: POST /cart/quote Example Request: (Requesting 3 keyboards and 1 chicken)
 ``````
-curl -X POST http://localhost:8080/cart/quote \
-   -H 'Content-Type: application/json' \
-   -d '{
-   "items": [
-   { "productId": "keyboard-uuid-or-id", "qty": 3 },
-   { "productId": "mousepad-uuid-or-id", "qty": 1 }
-   ],
-   "customerSegment": "REGULAR"
-   }'
-   Example Response Snippet (Expected):{
-   "totalOriginalPrice": 475.00,
-   "totalDiscountApplied": 55.00,
-   "finalPrice": 420.00,
-   "itemBreakdown": [
-   {
-   "productId": "keyboard-uuid-or-id",
-   "quantity": 3,
-   "appliedPromotions": ["PERCENT_OFF_CATEGORY", "BUY_X_GET_Y"],
-   "finalLinePrice": 270.00
-   },
-   // ...
-   ]
-   }
+curl --location 'http://localhost:8080/cart/quote' \
+--header 'Content-Type: application/json' \
+--data '{
+    "items": [
+        {
+            "productId": "5b86c458-121d-47ef-8114-7b1608cd47e7",
+            "qty": 3
+        },
+        {
+            "productId": "df9de2a2-0e6d-409b-9dd5-3d8a73aea6c4",
+            "qty": 5
+        }
+    ],
+    "customerSegment": "REGULAR"
+}'
  `````````
 4. Cart Confirmation and Reservation
 
 Validates stock, reserves inventory (atomically decrements stock), and generates an order.
 Endpoint: POST /cart/confirmExample Request: (Same payload as quote, with required Idempotency Key)
 ``````
-curl -X POST http://localhost:8080/cart/confirm \
-   -H 'Content-Type: application/json' \
-   -H 'Idempotency-Key: 7b8c-a1d2-e3f4-56g7' \
-   -d '{
-   "items": [
-   { "productId": "keyboard-uuid-or-id", "qty": 3 },
-   { "productId": "mousepad-uuid-or-id", "qty": 1 }
-   ],
-   "customerSegment": "REGULAR"
-   }'
-   Example Response:{
-   "orderId": "ORD-2025-ABCD-1234",
-   "finalPrice": 420.00,
-   "message": "Order confirmed and stock reserved."
-   }
+curl --location 'http://localhost:8080/cart/confirm' \
+--header 'Idempotency-Key: 7b8c-a1d2-e3f4-56g7' \
+--header 'Content-Type: application/json' \
+--data '{
+    "items": [
+        {
+            "productId": "5b86c458-121d-47ef-8114-7b1608cd47e7",
+            "qty": 3
+        },
+        {
+            "productId": "df9de2a2-0e6d-409b-9dd5-3d8a73aea6c4",
+            "qty": 5
+        }
+    ],
+    "customerSegment": "REGULAR"
+}'
  ``````
+
 Error Conditions
 * Stock Exhaustion: If stock runs out during confirmation, the service returns a 409 CONFLICT status code.
 * Idempotency Failure: If the same Idempotency-Key is reused for a different cart payload, an appropriate error is returned.

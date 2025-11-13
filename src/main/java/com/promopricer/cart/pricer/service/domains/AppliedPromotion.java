@@ -1,4 +1,6 @@
 package com.promopricer.cart.pricer.service.domains;
 
-public record AppliedPromotion(String name, String description) {
+import com.promopricer.cart.pricer.models.PromotionType;
+
+public record AppliedPromotion(PromotionType type, String name, String description) {
 }

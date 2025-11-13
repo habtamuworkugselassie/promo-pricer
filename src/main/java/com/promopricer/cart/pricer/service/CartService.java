@@ -17,9 +17,11 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,29 +67,33 @@ public class CartService {
 
         promotionEngine.applyPromotions(productMap, lineItems, customerSegment);
 
-        BigDecimal totalOriginalPrice = BigDecimal.ZERO;
-        BigDecimal totalFinalPrice = BigDecimal.ZERO;
-
         List<PriceBreakdownDto> breakdown = lineItems.stream()
                 .map(item -> {
                     BigDecimal originalPrice = item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getRequestedQty()));
                     BigDecimal finalPrice = item.getCurrentPrice();
                     BigDecimal discountAmount = originalPrice.subtract(finalPrice);
 
-                    totalOriginalPrice.add(originalPrice); // Note: Immutable BigDecimal
-                    totalFinalPrice.add(finalPrice);
-
                     return new PriceBreakdownDto(
                             item.getProduct().getName() + " (x" + item.getRequestedQty() + ")",
                             originalPrice.setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE),
                             finalPrice.setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE),
                             discountAmount.setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE),
+                            item.getRequestedQty(),
                             item.getAppliedPromotions().stream()
+                                    .sorted(Comparator.comparingInt(item.getAppliedPromotions()::indexOf).reversed())
                                     .map(ap -> new AppliedPromotionDto("Promotion", ap.name(), ap.description()))
                                     .toList()
                     );
                 })
                 .toList();
+
+        BigDecimal totalOriginalPrice = breakdown.stream()
+                .map(PriceBreakdownDto::originalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalFinalPrice = breakdown.stream()
+                .map(PriceBreakdownDto::finalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal totalDiscount = totalOriginalPrice.subtract(totalFinalPrice).setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE);
 

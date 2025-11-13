@@ -43,7 +43,7 @@ public class PercentOffCategoryPromotionRuleServiceImpl implements PromotionRule
                             .setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE);
 
                     String description = String.format("%d%% off %s category", percentage, targetCategory);
-                    item.applyDiscount(discountAmount, promotion.getName(), description);
+                    item.applyDiscount(promotion.getType(), discountAmount, promotion.getName(), description);
                 }
             }
         } catch (JsonProcessingException e) {

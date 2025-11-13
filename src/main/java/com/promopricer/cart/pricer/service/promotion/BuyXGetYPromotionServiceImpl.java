@@ -36,10 +36,7 @@ public class BuyXGetYPromotionServiceImpl implements PromotionRuleService {
             for (LineItem item : lineItems) {
                 if (item.getProductId().equals(targetProductId)) {
 
-                    int totalQty = item.getRequestedQty();
-                    int fullSetSize = buy + get;
-
-                    int freeItems = (totalQty / fullSetSize) * get;
+                    int freeItems = (item.getRequestedQty() / buy) * get;
 
                     if (freeItems > 0) {
 
@@ -48,7 +45,7 @@ public class BuyXGetYPromotionServiceImpl implements PromotionRuleService {
                                 .multiply(BigDecimal.valueOf(freeItems));
 
                         String description = String.format("Buy %d Get %d Free (x%d free items)", buy, get, freeItems);
-                        item.applyDiscount(discountAmount, promotion.getName(), description);
+                        item.applyDiscount(promotion.getType(), discountAmount, promotion.getName(), description);
                     }
                 }
             }

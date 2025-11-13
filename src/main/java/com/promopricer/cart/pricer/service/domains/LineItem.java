@@ -3,9 +3,11 @@ package com.promopricer.cart.pricer.service.domains;
 import com.promopricer.cart.pricer.config.PromotionAppConfig;
 import com.promopricer.cart.pricer.controller.domains.CartItemDto;
 import com.promopricer.cart.pricer.models.Product;
+import com.promopricer.cart.pricer.models.PromotionType;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +27,7 @@ public class LineItem {
         this.appliedPromotions = new java.util.ArrayList<>();
     }
 
-    public void applyDiscount(BigDecimal discountAmount, String promotionName, String description) {
+    public void applyDiscount(PromotionType promotionType, BigDecimal discountAmount, String promotionName, String description) {
         if (discountAmount.compareTo(BigDecimal.ZERO) > 0) {
             BigDecimal newPrice = currentPrice.subtract(discountAmount);
 
@@ -37,8 +39,12 @@ public class LineItem {
 
             this.currentPrice = newPrice.setScale(2, PromotionAppConfig.MONEY_ROUNDING_MODE);
 
-            appliedPromotions.add(new AppliedPromotion(promotionName, description));
+            appliedPromotions.add(new AppliedPromotion(promotionType, promotionName, description));
         }
+    }
+
+    public List<AppliedPromotion> getAppliedPromotions() {
+        return Collections.unmodifiableList(appliedPromotions);
     }
 
 }

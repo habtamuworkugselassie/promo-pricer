@@ -10,6 +10,7 @@ public record PriceBreakdownDto(
         @DecimalMin("0.00") BigDecimal originalPrice,
         @DecimalMin("0.00") BigDecimal finalPrice,
         @DecimalMin("0.00") BigDecimal discountAmount,
+        Integer quantity,
         List<AppliedPromotionDto> appliedPromotions
 ) {
 }

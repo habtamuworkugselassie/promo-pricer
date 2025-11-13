@@ -27,7 +27,7 @@ class CartController {
     @PostMapping("/confirm")
     public ResponseEntity<CartConfirmResponse> confirm(
             @Valid @RequestBody CartQuoteRequest request,
-            @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey) {
+            @RequestHeader(value = "Idempotency-Key", required = true) String idempotencyKey) {
 
         CartConfirmResponse response = cartService.confirmCart(request, idempotencyKey);
 
